@@ -31,9 +31,8 @@ public class AI {
         for(String answer: answers){
             full_answer += answer + ", ";
         }
-        full_answer = full_answer.substring(0, full_answer.length()-2);
 
-        return answers.isEmpty() ? "ok" : full_answer;
+        return full_answer.isEmpty() ? "ok" : full_answer.substring(0, full_answer.length()-2);
 
     }
 }
