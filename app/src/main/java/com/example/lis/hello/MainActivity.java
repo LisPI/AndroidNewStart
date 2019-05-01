@@ -1,15 +1,18 @@
 package com.example.lis.hello;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
+//b6da771ca9034d0b94a70813190105
 import java.util.Locale;
+import java.util.function.Consumer;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         sendButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
                 onClickListener();
@@ -49,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     protected void onClickListener(){
         String message = userMessage.getText().toString();
 
@@ -58,12 +63,23 @@ public class MainActivity extends AppCompatActivity {
         //chatWindow.append("\n<< " + AI.getAnswer(message));
 
         messageController.messageList.add(new Message(message,true));
+        AI.getAnswer(message, new Consumer<String>() {
+                    @Override
+                    public void accept(String answer) {
+                        messageController.messageList.add(new Message(answer,false));
+                        tts.speak(answer, TextToSpeech.QUEUE_FLUSH, null, null);
+                        messageController.notifyDataSetChanged();
+                        chatWindow.scrollToPosition(messageController.messageList.size() - 1);
+                    }
+                });
 
-        messageController.messageList.add(new Message(AI.getAnswer(message),false));
 
-        tts.speak(AI.getAnswer(message), TextToSpeech.QUEUE_FLUSH, null, null);
 
-        messageController.notifyDataSetChanged();
-        chatWindow.scrollToPosition(messageController.messageList.size() - 1);
+
+
+
+
+
+
     }
 }
