@@ -30,14 +30,26 @@ public class AI {
             put("какое небо", "голубое");
             put("какой сегодня день", getCurrentDate());
             put("сколько сейчас времени", getCurrentTime());
-
-
         }};
 
 
         for (String db_question : db.keySet()) {
             if(question.contains(db_question))
                 answers.add(db.get(db_question));
+        }
+
+        if(question.contains("расскажи афоризм")){
+            Dictum.get(new Consumer<String>() {
+                @Override
+                public void accept(String s) {
+                    answers.add(s);
+                    String full_answer = "";
+                    for(String answer: answers){
+                        full_answer += answer + ", ";
+                    }
+                    callback.accept(full_answer.substring(0, full_answer.length()-2));
+                }
+            });
         }
 
 
