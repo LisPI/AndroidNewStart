@@ -2,8 +2,12 @@ package com.example.lis.hello;
 
 import android.annotation.SuppressLint;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
@@ -21,6 +25,13 @@ public class AI {
             put("привет", "и вам здрасьте");
             put("как дела", "вроде ничего");
             put("чем занят", "отвечаю на вопросы");
+            put("есть ли жизнь на марсе", "конечно есть");
+            put("кто президент россии", "Путин");
+            put("какое небо", "голубое");
+            put("какой сегодня день", getCurrentDate());
+            put("сколько сейчас времени", getCurrentTime());
+
+
         }};
 
 
@@ -53,9 +64,18 @@ public class AI {
             callback.accept(full_answer.isEmpty() ? "ok" : full_answer.substring(0, full_answer.length()-2));
             return;
         }
+    }
 
+    protected static String getCurrentDate(){
+        DateFormat fmt = new SimpleDateFormat("d MMMM, EEEE", Locale.forLanguageTag("ru"));
 
+        return fmt.format(new Date());
+    }
 
+    protected static String getCurrentTime(){
 
+        DateFormat fmt = new SimpleDateFormat("HH:mm");
+
+        return fmt.format(new Date());
     }
 }
