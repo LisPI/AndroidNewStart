@@ -40,7 +40,7 @@ public class Weather {
         Call<ApiResult> getResult(@Query("q") String city, @Query("lang") String lang);
     }
 
-    public static void get(String city, final Consumer<String> callback){
+    public static void get(String city, final MyConsumer callback){
         Retrofit retrofit = new retrofit2.Retrofit.Builder()
                 .baseUrl("http://api.apixu.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -51,12 +51,11 @@ public class Weather {
                 .getResult(city, "ru");
 
         call.enqueue(new Callback<ApiResult>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<ApiResult> call, Response<ApiResult> response) {
                 ApiResult apiResult = response.body();
                 String result = "Там сейчас " + apiResult.current.condition.text + ", где-то " + apiResult.current.temperature.intValue() + " градусов";
-                callback.accept(result);
+                callback.myAccept(result);
             }
 
             @Override

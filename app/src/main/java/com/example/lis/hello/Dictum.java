@@ -29,7 +29,7 @@ public class Dictum {
         Call<ApiResult> getResult();
     }
 
-    public static void get(final Consumer<String> callback){
+    public static void get(final MyConsumer callback){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.forismatic.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -40,14 +40,13 @@ public class Dictum {
                 .getResult();
 
         call.enqueue(new Callback<ApiResult>() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onResponse(Call<ApiResult> call, Response<ApiResult> response) {
                 ApiResult apiResult = response.body();
                 if(apiResult.quoteAuthor.isEmpty())
                     apiResult.quoteAuthor = "Автор неизвестен";
                 String result = apiResult.quoteText + "\n " + apiResult.quoteAuthor;
-                callback.accept(result);
+                callback.myAccept(result);
             }
 
             @Override

@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     protected void onClickListener(){
         String message = userMessage.getText().toString();
 
@@ -63,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
         //chatWindow.append("\n<< " + AI.getAnswer(message));
 
         messageController.messageList.add(new Message(message,true));
-        AI.getAnswer(message, new Consumer<String>() {
+        AI.getAnswer(message, new MyConsumer() {
                     @Override
-                    public void accept(String answer) {
+                    public void myAccept(String answer) {
                         messageController.messageList.add(new Message(answer,false));
                         tts.speak(answer, TextToSpeech.QUEUE_FLUSH, null, null);
                         messageController.notifyDataSetChanged();

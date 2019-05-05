@@ -14,8 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class AI {
-    @SuppressLint("NewApi")
-    public static void getAnswer(String question, final Consumer<String> callback) {
+    public static void getAnswer(String question, final MyConsumer callback) {
 
         question = question.toLowerCase();
         final ArrayList<String> answers = new ArrayList<>();
@@ -39,15 +38,15 @@ public class AI {
         }
 
         if(question.contains("расскажи афоризм")){
-            Dictum.get(new Consumer<String>() {
+            Dictum.get(new MyConsumer() {
                 @Override
-                public void accept(String s) {
+                public void myAccept(String s) {
                     answers.add(s);
                     String full_answer = "";
                     for(String answer: answers){
                         full_answer += answer + ", ";
                     }
-                    callback.accept(full_answer.substring(0, full_answer.length()-2));
+                    callback.myAccept(full_answer.substring(0, full_answer.length()-2));
                 }
             });
         }
@@ -57,15 +56,15 @@ public class AI {
         Matcher matcher = cityPattern.matcher(question);
         if(matcher.find()){
             String cityName = matcher.group(1);
-            Weather.get(cityName, new Consumer<String>() {
+            Weather.get(cityName, new MyConsumer() {
                 @Override
-                public void accept(String s) {
+                public void myAccept(String s) {
                     answers.add(s);
                     String full_answer = "";
                     for(String answer: answers){
                         full_answer += answer + ", ";
                     }
-                    callback.accept(full_answer.substring(0, full_answer.length()-2));
+                    callback.myAccept(full_answer.substring(0, full_answer.length()-2));
                 }
             });
         }
@@ -73,7 +72,7 @@ public class AI {
             for(String answer: answers){
                 full_answer += answer + ", ";
             }
-            callback.accept(full_answer.isEmpty() ? "ok" : full_answer.substring(0, full_answer.length()-2));
+            callback.myAccept(full_answer.isEmpty() ? "ok" : full_answer.substring(0, full_answer.length()-2));
             return;
         }
     }
