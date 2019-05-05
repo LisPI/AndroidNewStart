@@ -10,9 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-//b6da771ca9034d0b94a70813190105
+
 import java.util.Locale;
-import java.util.function.Consumer;
+
+//b6da771ca9034d0b94a70813190105
 
 public class MainActivity extends AppCompatActivity {
 

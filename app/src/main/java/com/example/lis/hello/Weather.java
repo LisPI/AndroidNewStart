@@ -1,11 +1,6 @@
 package com.example.lis.hello;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-
 import com.google.gson.annotations.SerializedName;
-
-import java.util.function.Consumer;
 
 import retrofit2.Call;
 import retrofit2.Callback;

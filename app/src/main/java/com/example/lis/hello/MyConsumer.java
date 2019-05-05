@@ -1,5 +1,5 @@
 package com.example.lis.hello;
 
 public interface MyConsumer {
-    public void myAccept(String result);
+    void myAccept(String result);
 }
