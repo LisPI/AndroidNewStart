@@ -1,5 +1,6 @@
 package com.example.lis.hello;
 
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         setContentView(R.layout.activity_main);
 
         sendButton = findViewById(R.id.sendButton);
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void myAccept(String answer) {
                         messageController.messageList.add(new Message(answer,false));
-                        tts.speak(answer, TextToSpeech.QUEUE_FLUSH, null, null);
+                        tts.speak(answer, TextToSpeech.QUEUE_ADD, null, null);
                         messageController.notifyDataSetChanged();
                         chatWindow.scrollToPosition(messageController.messageList.size() - 1);
                     }

@@ -20,12 +20,12 @@ public class AI {
         Map<String, String> db = new HashMap<String, String>() {{
             put("привет", "и вам здрасьте");
             put("как дела", "вроде ничего");
-            put("чем занят", "отвечаю на вопросы");
+            put("чем занят", "отвечаю на дурацкие вопросы");
             put("есть ли жизнь на марсе", "конечно есть");
             put("кто президент россии", "Путин");
             put("какое небо", "голубое");
             put("какой сегодня день", getCurrentDate());
-            put("сколько сейчас времени", getCurrentTime());
+            put("сколько времени", getCurrentTime());
         }};
 
 
@@ -38,12 +38,12 @@ public class AI {
             Dictum.get(new MyConsumer() {
                 @Override
                 public void myAccept(String s) {
-                    answers.add(s);
+                    /*answers.add(s);
                     String full_answer = "";
                     for(String answer: answers){
                         full_answer += answer + ", ";
-                    }
-                    callback.myAccept(full_answer.substring(0, full_answer.length()-2));
+                    }*/
+                    callback.myAccept(s);
                 }
             });
         }
@@ -56,22 +56,21 @@ public class AI {
             Weather.get(cityName, new MyConsumer() {
                 @Override
                 public void myAccept(String s) {
-                    answers.add(s);
+                    /*answers.add(s);
                     String full_answer = "";
                     for(String answer: answers){
                         full_answer += answer + ", ";
-                    }
-                    callback.myAccept(full_answer.substring(0, full_answer.length()-2));
+                    }*/
+                    callback.myAccept(s);
                 }
             });
         }
-        else {
-            for(String answer: answers){
-                full_answer += answer + ", ";
-            }
-            callback.myAccept(full_answer.isEmpty() ? "ok" : full_answer.substring(0, full_answer.length()-2));
-            return;
+
+        for(String answer: answers){
+            full_answer += answer + ", ";
         }
+        callback.myAccept(full_answer.isEmpty() ? "ok" : full_answer.substring(0, full_answer.length()-2));
+
     }
 
     protected static String getCurrentDate(){
