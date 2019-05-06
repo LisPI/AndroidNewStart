@@ -34,7 +34,7 @@ public class AI {
                 answers.add(db.get(db_question));
         }
 
-        if(question.contains("расскажи афоризм")){
+        if(question.contains("афоризм")){
             Dictum.get(new MyConsumer() {
                 @Override
                 public void myAccept(String s) {

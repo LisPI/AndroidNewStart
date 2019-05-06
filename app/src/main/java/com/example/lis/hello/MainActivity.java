@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onInit(int i) {
                 tts.setLanguage(new Locale("ru"));
+                tts.speak(getString(R.string.init_message), TextToSpeech.QUEUE_ADD, null, null);
             }
         });
 
@@ -56,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
                 onClickListener();
             }
         });
+
+        messageController.messageList.add(new Message(getString(R.string.init_message),false));
+        messageController.notifyDataSetChanged();
+        chatWindow.scrollToPosition(messageController.messageList.size() - 1);
     }
 
     protected void onClickListener(){

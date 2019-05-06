@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MyAssistant</string>
+    <string name="init_message">Привет. Я твой Асситент. От меня ты можешь узнать: афоризм, какая погода в городе X(город), сколько времени, какой сегодня день и многое другое </string>
 </resources>
