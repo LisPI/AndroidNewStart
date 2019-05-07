@@ -2,6 +2,8 @@ package com.example.lis.hello;
 
 import com.google.gson.annotations.SerializedName;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,9 +38,18 @@ public class Weather {
     }
 
     public static void get(String city, final MyConsumer callback){
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder client = new OkHttpClient.Builder()
+                .addInterceptor(interceptor);
+
+
         Retrofit retrofit = new retrofit2.Retrofit.Builder()
                 .baseUrl("http://api.apixu.com/")
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(client.build())
                 .build();
 
         Call<ApiResult> call = retrofit
@@ -49,7 +60,8 @@ public class Weather {
             @Override
             public void onResponse(Call<ApiResult> call, Response<ApiResult> response) {
                 ApiResult apiResult = response.body();
-                String result = "Там сейчас " + apiResult.current.condition.text + ", где-то " + apiResult.current.temperature.intValue() + " градусов";
+
+                String result = (apiResult != null) ? "Там сейчас " + apiResult.current.condition.text + ", где-то " + apiResult.current.temperature.intValue() + " градусов": "Данные не найдены.";
                 callback.myAccept(result);
             }
 
