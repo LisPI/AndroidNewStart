@@ -68,9 +68,6 @@ public class MainActivity extends AppCompatActivity {
 
         userMessage.setText("");
 
-        //chatWindow.append("\n" + ">> " + message);
-        //chatWindow.append("\n<< " + AI.getAnswer(message));
-
         messageController.messageList.add(new Message(message,true));
         AI.getAnswer(message, new MyConsumer() {
                     @Override
