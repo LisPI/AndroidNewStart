@@ -30,22 +30,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <ImageView
+            android:id="@+id/buttonMic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@android:drawable/ic_btn_speak_now"
+            android:contentDescription="@string/micImage"
+            android:scaleType="fitCenter" />
+
         <EditText
             android:id="@+id/userMessage"
-            android:layout_width="wrap_content"
+            android:layout_width="189dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="@string/question"
-        />
-
-        <ImageView
-            android:id="@+id/button_mic"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@android:drawable/ic_btn_speak_now"
-            android:scaleType="fitCenter"
-            android:contentDescription="@string/micImage" />
+            android:hint="@string/question" />
 
         <Button
             android:id="@+id/sendButton"
