@@ -14,17 +14,12 @@ import retrofit2.http.Query;
 
 public class Weather {
 
-    public static class Condition{
-        @SerializedName("text")
-        public String text;
-    }
-
     public static class Forecast{
-        @SerializedName("temp_c")
+        @SerializedName("temperature")
         public Float temperature;
 
-        @SerializedName("condition")
-        public Condition condition;
+        @SerializedName("weather_descriptions")
+        public String[] condition;
     }
 
     public static class ApiResult{
@@ -33,8 +28,8 @@ public class Weather {
     }
 
     public interface WeatherService{
-        @GET("/v1/current.json?key=b6da771ca9034d0b94a70813190105")
-        Call<ApiResult> getResult(@Query("q") String city, @Query("lang") String lang);
+        @GET("/current?access_key=b73c90878581f11f42558f37bde2e993")
+        Call<ApiResult> getResult(@Query("query") String city, @Query("lang") String lang);
     }
 
     public static void get(String city, final MyConsumer callback){
@@ -47,7 +42,7 @@ public class Weather {
 
 
         Retrofit retrofit = new retrofit2.Retrofit.Builder()
-                .baseUrl("http://api.apixu.com/")
+                .baseUrl("http://api.weatherstack.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client.build())
                 .build();
@@ -61,7 +56,7 @@ public class Weather {
             public void onResponse(Call<ApiResult> call, Response<ApiResult> response) {
                 ApiResult apiResult = response.body();
 
-                String result = (apiResult != null) ? "Там сейчас " + apiResult.current.condition.text + ", где-то " + apiResult.current.temperature.intValue() + " градусов": "Данные не найдены.";
+                String result = (apiResult != null) ? "Там сейчас " + apiResult.current.condition[0] + ", где-то " + apiResult.current.temperature.intValue() + " градусов": "Данные не найдены.";
                 callback.myAccept(result);
             }
 
